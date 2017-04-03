@@ -31,7 +31,6 @@ public class Main {
         log("Hello");
         log("Sir");
 
-        String lala = "DuD";
-        log(lala);
+        log("DuD " + 10);
     }
 }

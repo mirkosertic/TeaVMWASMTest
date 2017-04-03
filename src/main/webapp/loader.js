@@ -37,12 +37,24 @@ var TeaVM = function() {
                         // 1364 Object Pointer
                         // 1388 Länge 4 Bytes
                         // 1392 UTF-8 Zeichen 2 Bytes
+                        var len1 = teavm.memoryArray[str + 24];
+                        var len2 = teavm.memoryArray[str + 25];
+                        var len3 = teavm.memoryArray[str + 26];
+                        var len4 = teavm.memoryArray[str + 27];
 
-                        console.log("log string : " + str);
-                        for (i=str;i<str + 32;i++) {
-                            var theChar = String.fromCharCode(teavm.memoryArray[i]);
-                            console.log("entry " + i + " : " + theChar + " : " + teavm.memoryArray[i]);
+                        var totalLength = len1 + len2 * 256 + len3 * 65536 + len4 * 16777216;
+
+                        var dataOffset = str + 28;
+                        var data = '';
+                        for (i=0;i<totalLength;i++) {
+                            var firstCode = teavm.memoryArray[dataOffset++];
+                            var secondCode = teavm.memoryArray[dataOffset++];
+                            var theChar = String.fromCharCode(secondCode * 256 + firstCode);
+                            data+=theChar;
                         }
+
+                        console.log("log string : " + data);
+
                     }
                 },
             }
