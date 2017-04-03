@@ -4,7 +4,7 @@ var TeaVM = function() {
         this.instance = null;
         this.module = null;
         this.memory = null;
-        this.memoryInt32Array = null;
+        this.memoryArray = null;
     }
 
     TeaVM.prototype.run = function() {
@@ -21,10 +21,7 @@ var TeaVM = function() {
                 return;
             }
 
-            var wasmMemory = new WebAssembly.Memory({initial: 2048});
-
             var importObj = {
-                memory: wasmMemory,
                 log: {
                     log_int: function (int) {
                         console.log("Log int : " + int)
@@ -36,16 +33,25 @@ var TeaVM = function() {
                         console.log("Log double : " + du)
                     },
                     log_string: function (str) {
-                        var vm = teavm;
-                        console.log("log string : " + str)
+
+                        // 1364 Object Pointer
+                        // 1373 Länge 4 Bytes ?
+                        // 1388 Länge 4 Bytes ?
+                        // 1392 UTF-8 Zeichen 2 Bytes
+
+                        console.log("log string : " + str);
+                        for (i=1364;i<1400;i++) {
+                            var theChar = String.fromCharCode(teavm.memoryArray[i]);
+                            console.log("entry " + i + " : " + theChar + " : " + teavm.memoryArray[i]);
+                        }
                     }
                 },
             }
-            WebAssembly.instantiate(response, importObj).then(function(results) {
-                teavm.instance = results.instance;
-                teavm.module = results.module;
-                teavm.memory = wasmMemory;
-                teavm.memoryInt32Array = new Uint32Array(wasmMemory.buffer);
+            WebAssembly.compile(response).then(function(module) {
+                teavm.module = module;
+                teavm.instance = new WebAssembly.Instance(module, importObj);
+                teavm.memory = teavm.instance.exports.memory;
+                teavm.memoryArray = new Uint8Array(teavm.memory.buffer);
                 console.log("Initialized")
                 callback();
             });
