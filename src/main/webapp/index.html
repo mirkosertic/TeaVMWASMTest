@@ -2,36 +2,14 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <script src="loader.js" type="text/javascript"></script>
 </head>
 <body>
 <script>
-    var wasminstance = function() {
-        var xhr = new XMLHttpRequest()
-        xhr.responseType = "arraybuffer"
-        xhr.open("GET", "teavm-wasm/classes.wasm")
-        xhr.onload = function () {
-            var response = xhr.response;
-            if (!response) {
-                return;
-            }
-            var importObj = {
-                log: {
-                    log_int: function (int) {
-                        console.log("Log int : " + int)
-                    },
-                    log_string: function (str) {
-                        console.log("log string : " + str)
-                    }
-                },
-            }
-            WebAssembly.compile(response).then(function (module) {
-                wasminstance.module = new WebAssembly.Instance(module, importObj)
-                console.log("Initialiozed")
-            });
-        }
-        xhr.send()
-    }();
-
+    document.body.onload = function() {
+        var vm = new TeaVM();
+        vm.run();
+    }
 </script>
 </body>
 </html>

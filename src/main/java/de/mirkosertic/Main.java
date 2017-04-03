@@ -10,6 +10,14 @@ public class Main {
     public static native void log(int aValue);
 
     @JSBody(params = "aValue", script = "console.print(aValue);")
+    @Import(module = "log", name = "log_float")
+    public static native void log(float aValue);
+
+    @JSBody(params = "aValue", script = "console.print(aValue);")
+    @Import(module = "log", name = "log_double")
+    public static native void log(double aValue);
+
+    @JSBody(params = "aValue", script = "console.print(aValue);")
     @Import(module = "log", name = "log_string")
     public static native void log(String aValue);
 
@@ -18,6 +26,8 @@ public class Main {
         int j = 13;
         int k = i + j;
         log(k);
+        log(10.344f);
+        log(10.344d);
         log("Hello");
     }
 }

@@ -62,6 +62,7 @@
                             <mainClass>de.mirkosertic.Main</mainClass>
                             <debugInformationGenerated>true</debugInformationGenerated>
                             <targetType>WEBASSEMBLY</targetType>
+                            <wasmVersion>V_0x1</wasmVersion>
                         </configuration>
                     </execution>
                 </executions>
