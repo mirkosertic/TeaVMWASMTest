@@ -35,12 +35,11 @@ var TeaVM = function() {
                     log_string: function (str) {
 
                         // 1364 Object Pointer
-                        // 1373 Länge 4 Bytes ?
-                        // 1388 Länge 4 Bytes ?
+                        // 1388 Länge 4 Bytes
                         // 1392 UTF-8 Zeichen 2 Bytes
 
                         console.log("log string : " + str);
-                        for (i=1364;i<1400;i++) {
+                        for (i=str;i<str + 32;i++) {
                             var theChar = String.fromCharCode(teavm.memoryArray[i]);
                             console.log("entry " + i + " : " + theChar + " : " + teavm.memoryArray[i]);
                         }

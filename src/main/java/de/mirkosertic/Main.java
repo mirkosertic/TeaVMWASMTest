@@ -29,5 +29,9 @@ public class Main {
         log(10.344f);
         log(10.344d);
         log("Hello");
+        log("Sir");
+
+        String lala = "DuD";
+        log(lala);
     }
 }
