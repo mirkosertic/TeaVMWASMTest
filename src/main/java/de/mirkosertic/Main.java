@@ -21,16 +21,25 @@ public class Main {
     @Import(module = "log", name = "log_string")
     public static native void log(String aValue);
 
+    static class Test {
+        private final int value;
+
+        public Test(int value) {
+            this.value = value;
+        }
+    }
+
     public static void main(String[] args) {
         int i = 12;
         int j = 13;
         int k = i + j;
+        Test test = new Test(11);
         log(k);
         log(10.344f);
         log(10.344d);
         log("Hello");
         log("Sir");
-
-        log("DuD " + 10);
+        log("DuD");
+        log(test.value);
     }
 }

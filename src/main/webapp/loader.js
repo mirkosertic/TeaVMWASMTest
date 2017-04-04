@@ -58,13 +58,15 @@ var TeaVM = function() {
                     }
                 },
             }
-            WebAssembly.compile(response).then(function(module) {
-                teavm.module = module;
-                teavm.instance = new WebAssembly.Instance(module, importObj);
+            WebAssembly.instantiate(response, importObj).then(function(resultObject) {
+                teavm.module = resultObject.module;
+                teavm.instance = resultObject.instance;
                 teavm.memory = teavm.instance.exports.memory;
                 teavm.memoryArray = new Uint8Array(teavm.memory.buffer);
                 console.log("Initialized")
                 callback();
+            }).catch(function(error) {
+                console.log("Error : " + error);
             });
         }
         xhr.send()
