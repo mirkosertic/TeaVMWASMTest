@@ -1,5 +1,6 @@
 package de.mirkosertic;
 
+import org.teavm.interop.Export;
 import org.teavm.interop.Import;
 import org.teavm.jso.JSBody;
 
@@ -21,6 +22,14 @@ public class Main {
     @Import(module = "log", name = "log_string")
     public static native void log(String aValue);
 
+    @Export(name = "passThru")
+    public static int passThru(int aValue) {
+       return aValue + 1;
+    }
+
+    @Import(module = "logic", name = "invokeMe")
+    public static native void invokeMe();
+
     static class Test {
         private final int value;
 
@@ -30,6 +39,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        passThru(10);
         int i = 12;
         int j = 13;
         int k = i + j;
@@ -41,5 +51,6 @@ public class Main {
         log("Sir");
         log("DuD");
         log(test.value);
+        invokeMe();
     }
 }

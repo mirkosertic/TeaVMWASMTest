@@ -22,6 +22,11 @@ var TeaVM = function() {
             }
 
             var importObj = {
+                logic: {
+                    invokeMe : function() {
+                        console.log(teavm.instance.exports.passThru(13));
+                    }
+                },
                 log: {
                     log_int: function (int) {
                         console.log("Log int : " + int)
