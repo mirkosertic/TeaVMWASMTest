@@ -24,7 +24,8 @@ public class Main {
 
     @Export(name = "passThru")
     public static int passThru(int aValue) {
-       return aValue + 1;
+        log("called from javascript");
+        return aValue + 1;
     }
 
     @Import(module = "logic", name = "invokeMe")
@@ -39,7 +40,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        passThru(10);
         int i = 12;
         int j = 13;
         int k = i + j;
