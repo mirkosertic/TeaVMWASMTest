@@ -37,6 +37,16 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <webResources>
@@ -63,7 +73,7 @@
                             <debugInformationGenerated>true</debugInformationGenerated>
                             <targetType>WEBASSEMBLY</targetType>
                             <wasmVersion>V_0x1</wasmVersion>
-                            <optimizationLevel>FULL</optimizationLevel>
+                            <optimizationLevel>SIMPLE</optimizationLevel>
                         </configuration>
                     </execution>
                 </executions>
