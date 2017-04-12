@@ -8,7 +8,10 @@
 <script>
     document.body.onload = function() {
         var vm = new TeaVM();
-        vm.run();
+        vm.run(function() {
+            console.log("Initialized")
+            vm.instance.exports.main()
+        });
     }
 </script>
 </body>
